@@ -1109,6 +1109,15 @@
           // coerce regexes to strings (http://es5.github.io/#x15.10.6.4)
           // treat string primitives and their corresponding object instances as equal
           return a == String(b);
+        case '[object Uint8Array]':
+          if (a.byteLength != b.byteLength) return false;
+          var dv1 = new Int8Array(a);
+          var dv2 = new Int8Array(b);
+          for (var i = 0 ; i != a.byteLength ; i++)
+          {
+            if (dv1[i] != dv2[i]) return false;
+          }
+          return true;
       }
       var isArr = className == arrayClass;
       if (!isArr) {
